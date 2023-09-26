@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-config-map
+data:
+  VITE_API_URL: api-load-balancer-service
+  MODE: production
+
+

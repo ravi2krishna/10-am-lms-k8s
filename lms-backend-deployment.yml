@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lms-public-backend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: be
+  template:
+    metadata:
+      labels:
+        tier: be
+    spec:
+      containers:
+        - name: lms-public-backend-container
+          image: ravi2krishna/lms-k8s-be
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: backend-config-map
+          env:
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: password
+
